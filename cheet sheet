@@ -1,2 +1,39 @@
 https://www.geeksforgeeks.org/git/git-cheat-sheet/
 Hackerearth#2025
+
+select substr('sql database program',3,4);
+
+create table student_tab(firstname varchar(15),lastname varchar(12),stdid int primary key,marks double);
+insert into student_tab values("Dhananjay",'Raj',123,90.11),('Kanta','Kumar',342,89.42),
+('Shiva','Kumar',234,80.64),('Preethi','Harish',433,99.99),('Varsha','Naveen',673,98.19);
+insert into student_tab (firstname, lastname, stdid, marks) values ('Umesh','Anuradha',144,-88.88);
+ select concat(firstname,' ',lastname) as fullname from student_tab;
+ select * from student_tab;
+ select marks, round(marks) as roundmarks from student_tab;
+ drop table student_tab;
+select concat(firstname,' ',lastname) as fullname, marks, abs(marks) as ab_marks ,floor(marks) as fl_marks, ceil(marks) as ce_marks from student_tab; 
+
+select datediff('2025-11-18','2003-07-08') as age;
+select timestampdiff(month,'2003-07-08',curdate()) as age;
+select sum(marks) from student_tab;
+select sum(distinct(marks)) from student_tab;
+select marks ,if (abs(marks) >=37,'Pass','Fail') as result from student_tab;
+
+select concat(firstname,' ',lastname) as fullname,marks, case
+when abs(marks)>=60 then 'A'
+when abs(marks)>=40 and abs(marks)<60 then 'B'
+when abs(marks)>=35 and abs(marks)<40 then 'C'
+else 'Fail' end as grade from student_tab;
+
+
+
+select email, instr(email,'@') as indexval from emptable;
+select empname , reverse (empname) as domain_name from emptable;
+select empname, lpad(empname,15,'*') as pad_empname from emptable;
+
+
+insert into customerstable values ('Rajeev','India');
+update customerstable set creditLine = '10%' where country = "Germany"  ;
+delete from products where orderdate <= '2005-01-01';
+update officetable set phonenumber = 42341442 where country = 'London';
+delete from products where orderid = null;
