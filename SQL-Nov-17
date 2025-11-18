@@ -1,0 +1,220 @@
+1. 
+CREATE TABLE Student (
+    StudentID INT PRIMARY KEY,
+    Name VARCHAR(50)
+);
+CREATE TABLE StudentPhone (
+    StudentID INT,
+    PhoneNumber VARCHAR(20),
+    PRIMARY KEY(StudentID, PhoneNumber),
+    FOREIGN KEY(StudentID) REFERENCES Student(StudentID)
+);
+INSERT INTO Student VALUES
+(101, 'Ravi'),
+(102, 'Anita'),
+(103, 'John');
+INSERT INTO StudentPhone VALUES
+(101, '98765'),
+(101, '87654'),
+(102, '99900'),
+(103, '88888'),
+(103, '77777'),
+(103, '66666');
+
+2. 
+CREATE TABLE Customer (
+    CustomerID INT PRIMARY KEY,
+    CustomerName VARCHAR(50)
+);
+CREATE TABLE Order1NF (
+    OrderID VARCHAR(10),
+    CustomerID INT,
+    Item VARCHAR(50),
+    PRIMARY KEY(OrderID, Item),
+    FOREIGN KEY(CustomerID) REFERENCES Customer(CustomerID)
+);
+INSERT INTO Customer VALUES
+(1, 'Raj'),
+(2, 'Sam');
+INSERT INTO Order1NF VALUES
+('O1', 1, 'Pen'),
+('O1', 1, 'Pencil'),
+('O2', 2, 'Notebook'),
+('O3', 1, 'Eraser'),
+('O3', 1, 'Marker'),
+('O3', 1, 'Pen');
+
+3.
+CREATE TABLE Employee (
+    EmpID INT PRIMARY KEY,
+    EmpName VARCHAR(50)
+);
+CREATE TABLE EmployeeSkill (
+    EmpID INT,
+    Skill VARCHAR(50),
+    PRIMARY KEY(EmpID, Skill),
+    FOREIGN KEY(EmpID) REFERENCES Employee(EmpID)
+);
+INSERT INTO Employee VALUES
+(1, 'Ramesh'),
+(2, 'Anita'),
+(3, 'John');
+INSERT INTO EmployeeSkill VALUES
+(1, 'Java'),
+(1, 'Python'),
+(2, 'Excel'),
+(3, 'C++'),
+(3, 'Java'),
+(3, 'HTML');
+
+4.
+CREATE TABLE CustomerAddress (
+    CustID INT PRIMARY KEY,
+    Name VARCHAR(50),
+    City VARCHAR(50),
+    State VARCHAR(50),
+    Country VARCHAR(50)
+);
+INSERT INTO CustomerAddress VALUES
+(1, 'Meera', 'Hyderabad', 'Telangana', 'India'),
+(2, 'Ajay', 'Pune', 'Maharashtra', 'India');
+
+5.
+CREATE TABLE Student2NF (
+    StudentID INT PRIMARY KEY,
+    StudentName VARCHAR(50)
+);
+CREATE TABLE Course2NF (
+    CourseID VARCHAR(10) PRIMARY KEY,
+    CourseName VARCHAR(50),
+    Faculty VARCHAR(50)
+);
+CREATE TABLE Marks2NF (
+    StudentID INT,
+    CourseID VARCHAR(10),
+    Marks INT,
+    PRIMARY KEY(StudentID, CourseID),
+    FOREIGN KEY(StudentID) REFERENCES Student2NF(StudentID),
+    FOREIGN KEY(CourseID) REFERENCES Course2NF(CourseID)
+);
+INSERT INTO Student2NF VALUES
+(1, 'Ramesh'),
+(2, 'Anita');
+INSERT INTO Course2NF VALUES
+('C1', 'Java', 'Amit'),
+('C2', 'Python', 'Seema');
+INSERT INTO Marks2NF VALUES
+(1, 'C1', 90),
+(1, 'C2', 85),
+(2, 'C1', 78);
+
+6.
+CREATE TABLE Customer2NF (
+    CustomerID INT PRIMARY KEY,
+    CustomerName VARCHAR(50)
+);
+CREATE TABLE Product2NF (
+    ProductID VARCHAR(10) PRIMARY KEY,
+    ProductName VARCHAR(50)
+);
+CREATE TABLE OrderDetails2NF (
+    OrderID VARCHAR(10),
+    ProductID VARCHAR(10),
+    CustomerID INT,
+    Quantity INT,
+    PRIMARY KEY(OrderID, ProductID),
+    FOREIGN KEY(ProductID) REFERENCES Product2NF(ProductID),
+    FOREIGN KEY(CustomerID) REFERENCES Customer2NF(CustomerID)
+);
+INSERT INTO Customer2NF VALUES
+(1, 'Raj'),
+(2, 'Meena');
+INSERT INTO Product2NF VALUES
+('P1', 'Pen'),
+('P2', 'Pencil');
+INSERT INTO OrderDetails2NF VALUES
+('O1', 'P1', 1, 2),
+('O1', 'P2', 1, 1),
+('O2', 'P1', 2, 3);
+
+7.
+CREATE TABLE Employee2NF (
+    EmpID INT PRIMARY KEY,
+    EmpName VARCHAR(50)
+);
+CREATE TABLE Project2NF (
+    ProjectID VARCHAR(10) PRIMARY KEY,
+    ProjectName VARCHAR(50)
+);
+CREATE TABLE WorkHours2NF (
+    EmpID INT,
+    ProjectID VARCHAR(10),
+    HoursWorked INT,
+    PRIMARY KEY(EmpID, ProjectID),
+    FOREIGN KEY(EmpID) REFERENCES Employee2NF(EmpID),
+    FOREIGN KEY(ProjectID) REFERENCES Project2NF(ProjectID)
+);
+INSERT INTO Employee2NF VALUES
+(1, 'Ravi'),
+(2, 'Anita');
+INSERT INTO Project2NF VALUES
+('P1', 'WebApp'),
+('P2', 'MobileApp');
+INSERT INTO WorkHours2NF VALUES
+(1, 'P1', 20),
+(1, 'P2', 30),
+(2, 'P1', 25);
+
+8.
+CREATE TABLE Driver2NF (
+    DriverID VARCHAR(10) PRIMARY KEY,
+    DriverName VARCHAR(50)
+);
+CREATE TABLE Route2NF (
+    RouteID VARCHAR(10) PRIMARY KEY,
+    RouteName VARCHAR(50),
+    Distance VARCHAR(20)
+);
+CREATE TABLE DriverRoute2NF (
+    DriverID VARCHAR(10),
+    RouteID VARCHAR(10),
+    PRIMARY KEY(DriverID, RouteID),
+    FOREIGN KEY(DriverID) REFERENCES Driver2NF(DriverID),
+    FOREIGN KEY(RouteID) REFERENCES Route2NF(RouteID)
+);
+INSERT INTO Driver2NF VALUES
+('D1', 'Amit'),
+('D2', 'Sunil');
+INSERT INTO Route2NF VALUES
+('R1', 'Airport Route', '40 km'),
+('R2', 'City Route', '20 km');
+INSERT INTO DriverRoute2NF VALUES
+('D1', 'R1'),
+('D1', 'R2'),
+('D2', 'R1');
+
+9.
+CREATE TABLE CustomerOrders (
+    OrderID VARCHAR(10),
+    CustomerName VARCHAR(50),
+    City VARCHAR(50),
+    PRIMARY KEY(OrderID)
+);
+CREATE TABLE ProductOrders (
+    OrderID VARCHAR(10),
+    ProductID VARCHAR(10),
+    ProductName VARCHAR(50),
+    Price DECIMAL(10,2),
+    Quantity INT,
+    PRIMARY KEY(OrderID, ProductID),
+    FOREIGN KEY(OrderID) REFERENCES CustomerOrders(OrderID)
+);
+INSERT INTO CustomerOrders VALUES
+('O1', 'Ravi', 'Mumbai'),
+('O2', 'Meena', 'Delhi');
+INSERT INTO ProductOrders VALUES
+('O1', 'P1', 'Pen', 10, 2),
+('O1', 'P1', 'Pen', 10, 3),
+('O2', 'P2', 'Book', 100, 1),
+('O2', 'P3', 'Bag', 500, 1),
+('O2', 'P3', 'Bag', 500, 2);
